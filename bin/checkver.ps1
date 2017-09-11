@@ -87,12 +87,15 @@ $queue | % {
         $regex = $json.checkver
     }
 
+    $reverse = $json.checkver.reverse -and $json.checkver.reverse -eq "true"
+
     $state = new-object psobject @{
         app = (strip_ext $name);
         url = $url;
         regex = $regex;
         json = $json;
         jsonpath = $jsonpath;
+        reverse = $reverse;
     }
 
     $wc.headers.add('Referer', (strip_filename $url))
@@ -113,6 +116,7 @@ while($in_progress -gt 0) {
     $expected_ver = $json.version
     $regexp = $state.regex
     $jsonpath = $state.jsonpath
+    $reverse = $state.reverse
     $ver = ""
 
     $err = $ev.sourceeventargs.error
@@ -132,7 +136,10 @@ while($in_progress -gt 0) {
     }
 
     if($jsonpath) {
-        $ver = json_path ($page | ConvertFrom-Json -ea stop) $jsonpath
+        $ver = json_path $page $jsonpath
+        if(!$ver) {
+            $ver = json_path_legacy $page $jsonpath
+        }
         if(!$ver) {
             write-host -f darkred "couldn't find '$jsonpath' in $url"
             continue
@@ -140,10 +147,18 @@ while($in_progress -gt 0) {
     }
 
     if($regexp) {
-        if($page -match $regexp) {
-            $ver = $matches[1]
+        if($reverse) {
+            $matches = [regex]::matches($page, $regexp) | select-object -last 1
+        } else {
+            $matches = [regex]::matches($page, $regexp) | select-object -first 1
+        }
+
+        if($matches.Success) {
+            $matchesHashtable = @{}
+            $matches.groups | % { $matchesHashtable.Add($_.Name, $_.Value) }
+            $ver = $matchesHashtable['1']
             if(!$ver) {
-                $ver = $matches['version']
+                $ver = $matchesHashtable['version']
             }
         } else {
             write-host -f darkred "couldn't match '$regexp' in $url"
@@ -182,7 +197,7 @@ while($in_progress -gt 0) {
             Write-Host "Forcing autoupdate!" -f DarkMagenta
         }
         try {
-            autoupdate $app $dir $json $ver $matches
+            autoupdate $app $dir $json $ver $matchesHashtable
         } catch {
             error $_.exception.message
         }
