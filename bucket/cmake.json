@@ -1,17 +1,17 @@
 {
     "homepage": "https://cmake.org/",
-    "version": "3.9.2",
+    "version": "3.10.2",
     "license": "https://cmake.org/licensing/",
     "architecture": {
         "64bit": {
-            "url": "https://cmake.org/files/v3.9/cmake-3.9.2-win64-x64.zip",
-            "hash": "0f47e6ae0ca1291103af5e9a01524868f7e6690ebd0b9b6906bee526acfedcbc",
-            "extract_dir": "cmake-3.9.2-win64-x64"
+            "url": "https://cmake.org/files/v3.10/cmake-3.10.2-win64-x64.zip",
+            "hash": "fd44d90d7eab48fbca0862e758d07f84e027ef68cb0d7a2d1ec865964ca58b12",
+            "extract_dir": "cmake-3.10.2-win64-x64"
         },
         "32bit": {
-            "url": "https://cmake.org/files/v3.9/cmake-3.9.2-win32-x86.zip",
-            "hash": "9fe68d50f065666cb2861f53751390f15c6363c440e86a07677689378bb8329f",
-            "extract_dir": "cmake-3.9.2-win32-x86"
+            "url": "https://cmake.org/files/v3.10/cmake-3.10.2-win32-x86.zip",
+            "hash": "f5f7e41a21d0e9b655aca58498b08e17ecd27796bf82837e2c84435359169dd6",
+            "extract_dir": "cmake-3.10.2-win32-x86"
         }
     },
     "bin": [

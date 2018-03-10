@@ -31,7 +31,7 @@ if($app) { $search = $app }
 
 # get apps to check
 $queue = @()
-gci $dir "$search.json" | % {
+Get-ChildItem $dir "$search.json" | ForEach-Object {
     $json = parse_json "$dir\$_"
     if($json.checkver) {
         $queue += ,@($_, $json)
@@ -39,14 +39,14 @@ gci $dir "$search.json" | % {
 }
 
 # clear any existing events
-get-event | % {
+get-event | ForEach-Object {
     remove-event $_.sourceidentifier
 }
 
 $original = use_any_https_protocol
 
 # start all downloads
-$queue | % {
+$queue | ForEach-Object {
     $wc = new-object net.webclient
     $wc.Headers.Add("user-agent", "Scoop/1.0 (+http://scoop.sh/) (Windows NT 6.1; WOW64)")
     register-objectevent $wc downloadstringcompleted -ea stop | out-null
@@ -61,6 +61,7 @@ $queue | % {
     }
     $regex = ""
     $jsonpath = ""
+    $replace = ""
 
     if ($json.checkver -eq "github") {
         if (!$json.homepage.StartsWith("https://github.com/")) {
@@ -83,6 +84,10 @@ $queue | % {
         $jsonpath = $json.checkver.jp
     }
 
+    if ($json.checkver.replace -and $json.checkver.replace.GetType() -eq [System.String]) {
+        $replace = $json.checkver.replace
+    }
+
     if(!$jsonpath -and !$regex) {
         $regex = $json.checkver
     }
@@ -96,6 +101,7 @@ $queue | % {
         json = $json;
         jsonpath = $jsonpath;
         reverse = $reverse;
+        replace = $replace;
     }
 
     $wc.headers.add('Referer', (strip_filename $url))
@@ -117,6 +123,7 @@ while($in_progress -gt 0) {
     $regexp = $state.regex
     $jsonpath = $state.jsonpath
     $reverse = $state.reverse
+    $replace = $state.replace
     $ver = ""
 
     $err = $ev.sourceeventargs.error
@@ -130,8 +137,8 @@ while($in_progress -gt 0) {
         continue
     }
 
-    if($jsonpath -and $regexp) {
-        write-host -f darkred "'jp' and 're' shouldn't be used together"
+    if(!$regex -and $replace) {
+        write-host -f darkred "'replace' requires 're'"
         continue
     }
 
@@ -146,17 +153,26 @@ while($in_progress -gt 0) {
         }
     }
 
+    if($jsonpath -and $regexp) {
+        $page = $ver
+        $ver = ""
+    }
+
     if($regexp) {
+        $regex = new-object System.Text.RegularExpressions.Regex($regexp)
         if($reverse) {
-            $matches = [regex]::matches($page, $regexp) | select-object -last 1
+            $match = $regex.matches($page) | select-object -last 1
         } else {
-            $matches = [regex]::matches($page, $regexp) | select-object -first 1
+            $match = $regex.matches($page) | select-object -first 1
         }
 
-        if($matches.Success) {
+        if($match -and $match.Success) {
             $matchesHashtable = @{}
-            $matches.groups | % { $matchesHashtable.Add($_.Name, $_.Value) }
+            $regex.GetGroupNames() | ForEach-Object { $matchesHashtable.Add($_, $match.Groups[$_].Value) }
             $ver = $matchesHashtable['1']
+            if ($replace) {
+                $ver = $regex.replace($match.Value, $replace)
+            }
             if(!$ver) {
                 $ver = $matchesHashtable['version']
             }

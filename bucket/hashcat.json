@@ -1,9 +1,9 @@
 {
     "homepage": "https://hashcat.net/hashcat/",
     "license": "mit",
-    "version": "3.6.0",
-    "url": "https://hashcat.net/files/hashcat-3.6.0.7z",
-    "extract_dir": "hashcat-3.6.0",
+    "version": "4.1.0",
+    "url": "https://hashcat.net/files/hashcat-4.1.0.7z",
+    "extract_dir": "hashcat-4.1.0",
     "architecture": {
         "64bit": {
             "bin": [
@@ -24,7 +24,7 @@
             ]
         }
     },
-    "hash": "84ad1d952081effe32e0f2293fdce65961bb0c5c219026f2a6466c1f99bac8fb",
+    "hash": "6edac8a411f013408e5113b2419b3fe1fb5ea996b6c2e27cd8d8e54b0776b112",
     "checkver": {
         "github": "https://github.com/hashcat/hashcat/"
     },

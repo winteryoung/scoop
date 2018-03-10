@@ -76,8 +76,8 @@ function rm_alias($name) {
 function list_aliases {
   $aliases = @{}
 
-  (init_alias_config).getenumerator() |% {
-    $summary = summary (gc (command_path $_.name) -raw)
+  (init_alias_config).getenumerator() | ForEach-Object {
+    $summary = summary (Get-Content (command_path $_.name) -raw)
     if(!($summary)) { $summary = '' }
     $aliases.add("$($_.name) ", $summary)
   }
@@ -86,7 +86,7 @@ function list_aliases {
     warn "No aliases founds."
   }
 
-  $aliases.getenumerator() | sort name | ft -hidetablehead -autosize -wrap
+  $aliases.getenumerator() | Sort-Object name | Format-Table -hidetablehead -autosize -wrap
 }
 
 switch($opt) {
@@ -95,3 +95,5 @@ switch($opt) {
   "list" { list_aliases }
   default { my_usage; exit 1 }
 }
+
+exit 0

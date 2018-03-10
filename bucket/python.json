@@ -1,15 +1,15 @@
 {
     "homepage": "https://www.python.org/",
     "license": "https://docs.python.org/3/license.html",
-    "version": "3.6.2",
+    "version": "3.6.4",
     "architecture": {
         "64bit": {
-            "url": "https://www.python.org/ftp/python/3.6.2/python-3.6.2-amd64.exe#/py3.exe",
-            "hash": "0322992c443889dd7435b67a1d9519511f0ec06b5ebbc64c15223922ae966d2e"
+            "url": "https://www.python.org/ftp/python/3.6.4/python-3.6.4-amd64.exe#/py3.exe",
+            "hash": "de02d46fe9a6269a7c0792d8be155b0d1fa20a68623a0fad33ab02f92ef58d49"
         },
         "32bit": {
-            "url": "https://www.python.org/ftp/python/3.6.2/python-3.6.2.exe#/py3.exe",
-            "hash": "13725db4df084dcc1600716cb8cd150300f4420aaf48a2f21ce14b7aad0a2c13"
+            "url": "https://www.python.org/ftp/python/3.6.4/python-3.6.4.exe#/py3.exe",
+            "hash": "f1c783363504c353d4b2478d3af21f72cee0bdd6d4f363a9e0e4fffda3dc9fdf"
         }
     },
     "pre_install": "copy-item $dir\\py3.exe $dir\\uninstall.exe",
@@ -17,7 +17,7 @@
         "args": [
             "/quiet",
             "InstallAllUsers=$(@{$true=1;$false=0}[$global])",
-            "TargetDir=$dir",
+            "TargetDir=\"$dir\"",
             "AssociateFiles=0",
             "Shortcuts=0",
             "InstallLauncherAllUsers=$(@{$true=1;$false=0}[$global])"
@@ -42,7 +42,10 @@
     "env_add_path": [
         "scripts"
     ],
-    "checkver": "<p>Latest: <a href=\".*\">Python ([\\d.]+)</a> - <a.*>.*</a></p>",
+    "checkver": {
+        "url": "https://www.python.org/downloads/windows/",
+        "re": "Latest Python 3 Release - Python ([\\d.]+)"
+    },
     "autoupdate": {
         "architecture": {
             "64bit": {

@@ -1,10 +1,19 @@
 {
     "homepage": "https://github.com/PowerShell/Win32-OpenSSH",
-    "version": "0.0.20.0",
+    "version": "1.0.0.0",
     "license": "https://raw.githubusercontent.com/PowerShell/Win32-OpenSSH/L1-Prod/LICENCE",
-    "hash": "40d389036432ae06cfba2a3992e545fd24108e458792a1fbab2e94d3a647c0c6",
-    "url": "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v0.0.20.0/OpenSSH-Win32.zip",
-    "extract_dir": "OpenSSH-Win32",
+    "architecture": {
+        "32bit": {
+            "hash": "a20c2bfc4a672c4262abbcc546e91b0ecc9b074907ddcceb11329c042029611a",
+            "url": "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v1.0.0.0/OpenSSH-Win32.zip",
+            "extract_dir": "OpenSSH-Win32"
+        },
+        "64bit": {
+            "hash": "0c5dd4a30497f6c40ddc6dfc95cbf3a90adcce0148d87de65ffcc555d8890c4f",
+            "url": "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v1.0.0.0/OpenSSH-Win64.zip",
+            "extract_dir": "OpenSSH-Win64"
+        }
+    },
     "bin": [
         "scp.exe",
         "sftp.exe",
@@ -22,7 +31,13 @@
         "github": "https://github.com/PowerShell/Win32-OpenSSH"
     },
     "autoupdate": {
-        "url": "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v$version/OpenSSH-Win32.zip",
-        "extract_dir": "OpenSSH-Win32"
+        "architecture": {
+            "32bit": {
+                "url": "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v$version/OpenSSH-Win32.zip"
+            },
+            "64bit": {
+                "url": "https://github.com/PowerShell/Win32-OpenSSH/releases/download/v$version/OpenSSH-Win64.zip"
+            }
+        }
     }
 }

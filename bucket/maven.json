@@ -1,14 +1,11 @@
 {
     "homepage": "https://maven.apache.org/",
-    "version": "3.5.0",
+    "version": "3.5.3",
     "license": "Apache 2.0",
-    "url": "https://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.zip",
-    "hash": "sha1:886393e7031d42c412a077c240af73d75e671d62",
-    "extract_dir": "apache-maven-3.5.0",
+    "url": "https://archive.apache.org/dist/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.zip",
+    "hash": "sha1:4a4844990333e2548540729ce9ab57f52a63148d",
+    "extract_dir": "apache-maven-3.5.3",
     "env_add_path": "bin",
-    "env_set": {
-        "M2_HOME": "$dir"
-    },
     "suggest": {
         "JDK": [
             "extras/oraclejdk",
@@ -25,5 +22,8 @@
         "hash": {
             "url": "$url.sha1"
         }
-    }
+    },
+    "persist": [
+        "conf"
+    ]
 }

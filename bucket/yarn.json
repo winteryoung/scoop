@@ -1,7 +1,7 @@
 {
     "homepage": "https://yarnpkg.com/",
     "license": "BSD",
-    "version": "1.0.1",
+    "version": "1.5.1",
     "suggest": {
         "Node.js": [
             "nodejs",
@@ -11,16 +11,17 @@
             "nvm"
         ]
     },
-    "url": "https://yarnpkg.com/downloads/1.0.1/yarn-1.0.1.msi",
-    "hash": "325411d8532d8bc1fd57f7dd196dd27e50f1b687d315240401c970d1dc32b172",
+    "url": "https://yarnpkg.com/downloads/1.5.1/yarn-1.5.1.msi",
+    "hash": "d09f4fd17db939bcb6125e8abd3685cc19c0ff1f517c2c513ae219baf574114e",
     "persist": [
         "cache",
-        "bin"
+        "bin",
+        "mirror"
     ],
     "post_install": "
-        yarn config delete cache # 0.24.6 | remove wrong configuration value | delete after two updates
-        yarn config set cache-folder \"$persist_dir\\cache\"
-        yarn config set prefix \"$persist_dir\\bin\"
+        yarn config set cache-folder \"$dir\\cache\"
+        yarn config set yarn-offline-mirror \"$dir\\mirror\"
+        yarn config set prefix \"$dir\"
     ",
     "env_add_path": [
         "bin",

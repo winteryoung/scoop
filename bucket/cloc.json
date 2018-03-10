@@ -1,0 +1,14 @@
+{
+    "homepage": "https://github.com/AlDanial/cloc",
+    "version": "1.76",
+    "license": "GPL-2.0",
+    "url": "https://github.com/AlDanial/cloc/releases/download/v1.76/cloc-1.76.exe#/cloc.exe",
+    "hash": "44664a182026c42a779fe67746736d4d336ce10177d6c970cb163cb1dde246e1",
+    "bin": "cloc.exe",
+    "checkver": {
+        "github": "https://github.com/AlDanial/cloc"
+    },
+    "autoupdate": {
+        "url": "https://github.com/AlDanial/cloc/releases/download/v$version/cloc-$version.exe#/cloc.exe"
+    }
+}

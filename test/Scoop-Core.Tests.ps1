@@ -35,7 +35,7 @@ describe "movedir" {
         $dir = "$working_dir\user"
         movedir "$dir\_tmp\$extract_dir" "$dir\$extract_to"
 
-        "$dir\test.txt" | should contain "this is the one"
+        "$dir\test.txt" | should FileContentMatch "this is the one"
         "$dir\_tmp\$extract_dir" | should not exist
     }
 
@@ -43,12 +43,12 @@ describe "movedir" {
         $dir = "$working_dir\user with space"
         movedir "$dir\_tmp\$extract_dir" "$dir\$extract_to"
 
-        "$dir\test.txt" | should contain "this is the one"
+        "$dir\test.txt" | should FileContentMatch "this is the one"
         "$dir\_tmp\$extract_dir" | should not exist
 
         # test trailing \ in from dir
         movedir "$dir\_tmp\$null" "$dir\another"
-        "$dir\another\test.txt" | should contain "testing"
+        "$dir\another\test.txt" | should FileContentMatch "testing"
         "$dir\_tmp" | should not exist
     }
 
@@ -56,7 +56,7 @@ describe "movedir" {
         $dir = "$working_dir\user with 'quote"
         movedir "$dir\_tmp\$extract_dir" "$dir\$extract_to"
 
-        "$dir\test.txt" | should contain "this is the one"
+        "$dir\test.txt" | should FileContentMatch "this is the one"
         "$dir\_tmp\$extract_dir" | should not exist
     }
 }
@@ -92,7 +92,7 @@ describe "unzip_old" {
 
             $to | should exist
 
-            (gci $to).count | should be 0
+            (Get-ChildItem $to).count | should be 0
         }
     }
 
@@ -183,7 +183,7 @@ describe "ensure_robocopy_in_path" {
     context "robocopy is not in path" {
         it "shims robocopy when not on path" -skip:$isUnix {
             mock gcm { $false }
-            gcm robocopy | should be $false
+            Get-Command robocopy | should be $false
 
             ensure_robocopy_in_path
 

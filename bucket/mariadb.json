@@ -1,17 +1,17 @@
 {
     "homepage": "https://mariadb.org",
-    "version": "10.2.8",
+    "version": "10.2.13",
     "license": "GPL2",
     "architecture": {
         "64bit": {
-            "url": "https://downloads.mariadb.org/f/mariadb-10.2.8/winx64-packages/mariadb-10.2.8-winx64.zip",
-            "hash": "c641900a843aae86349268465e42cec83ac7b603396299f49c205a2ea405e929",
-            "extract_dir": "mariadb-10.2.8-winx64"
+            "url": "https://downloads.mariadb.org/f/mariadb-10.2.13/winx64-packages/mariadb-10.2.13-winx64.zip",
+            "hash": "5dce3e7052e7265ec23c9e70d7e5c8f8b05fa197fc38acc4e604b23b121ea8a6",
+            "extract_dir": "mariadb-10.2.13-winx64"
         },
         "32bit": {
-            "url": "https://downloads.mariadb.org/f/mariadb-10.2.8/win32-packages/mariadb-10.2.8-win32.zip",
-            "hash": "9958445d6e86ffb17695cff68ebcad41623e97af0feada1c7809cd840d13464b",
-            "extract_dir": "mariadb-10.2.8-win32"
+            "url": "https://downloads.mariadb.org/f/mariadb-10.2.13/win32-packages/mariadb-10.2.13-win32.zip",
+            "hash": "4ba689f23e12812fc099ab1cf42224a5a13d63a75ccc0ec65af3c40defa80ed2",
+            "extract_dir": "mariadb-10.2.13-win32"
         }
     },
     "bin": [
@@ -35,10 +35,7 @@
         "bin\\mysqlshow.exe",
         "bin\\mysqlslap.exe",
         "bin\\mysqltest.exe",
-        "bin\\mysqltest_embedded.exe",
         "bin\\mysql_client_test.exe",
-        "bin\\mysql_client_test_embedded.exe",
-        "bin\\mysql_embedded.exe",
         "bin\\mysql_install_db.exe",
         "bin\\mysql_plugin.exe",
         "bin\\mysql_tzinfo_to_sql.exe",
@@ -50,6 +47,14 @@
     "persist": [
         "data"
     ],
+    "post_install": "#Initialize data directory (without generating root password)
+    if (!(Test-Path \"$dir\\data\\auto.cnf\")) {
+        mysqld --initialize-insecure
+    }",
+    "notes": "Run following command as administrator to run MariaDB as a service.
+
+mysqld --install \"[Service Name(default:MySQL)]\"
+",
     "checkver": {
         "url": "https://downloads.mariadb.org/",
         "re": "Download ([\\d.]+) Stable"

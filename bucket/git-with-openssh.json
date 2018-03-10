@@ -2,15 +2,15 @@
     "##": "Maintainers: when updating this manifest to a new version, you might like to also update git.json",
     "homepage": "https://git-for-windows.github.io/",
     "license": "GPL2",
-    "version": "2.14.1.windows.1",
+    "version": "2.16.2.windows.1",
     "architecture": {
         "64bit": {
-            "url": "https://github.com/git-for-windows/git/releases/download/v2.14.1.windows.1/PortableGit-2.14.1-64-bit.7z.exe#/dl.7z",
-            "hash": "3c3270a9df5f3db1f7637d86b94fb54a96e9145ba43c98a3e993cdffb1a1842e"
+            "url": "https://github.com/git-for-windows/git/releases/download/v2.16.2.windows.1/PortableGit-2.16.2-64-bit.7z.exe#/dl.7z",
+            "hash": "f51853689ad8a9e30759fb263a31bcd59753b3a97272b0e76a4210528a8631a1"
         },
         "32bit": {
-            "url": "https://github.com/git-for-windows/git/releases/download/v2.14.1.windows.1/PortableGit-2.14.1-32-bit.7z.exe#/dl.7z",
-            "hash": "df3f9b6c2dd2b12e5cb7035b9ca48d13b973d054a35b0939953aa6e7a00a0659"
+            "url": "https://github.com/git-for-windows/git/releases/download/v2.16.2.windows.1/PortableGit-2.16.2-32-bit.7z.exe#/dl.7z",
+            "hash": "b5a91978956ac14f59ccdbc70c9c8d2f105e730e81ae8316a59791d33f3d6a87"
         }
     },
     "bin": [
@@ -25,7 +25,8 @@
         "usr\\bin\\ssh-add.exe",
         "usr\\bin\\ssh-agent.exe",
         "usr\\bin\\ssh-keygen.exe",
-        "usr\\bin\\ssh-keyscan.exe"
+        "usr\\bin\\ssh-keyscan.exe",
+        "usr\\bin\\tig.exe"
     ],
     "post_install": [
         "git config --global credential.helper manager"
@@ -42,6 +43,10 @@
             "32bit": {
                 "url": "https://github.com/git-for-windows/git/releases/download/v$matchVersion/PortableGit-$matchShort-32-bit.7z.exe#/dl.7z"
             }
+        },
+        "hash": {
+            "url": "https://github.com/git-for-windows/git/releases/latest",
+            "find": "<td>$basename<\\/td>\\s*<td>([0-9a-fA-F]+)<\\/td>"
         }
     }
 }

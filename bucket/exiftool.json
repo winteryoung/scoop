@@ -1,9 +1,9 @@
 {
-    "homepage": "http://www.sno.phy.queensu.ca/~phil/exiftool/index.html",
-    "version": "10.61",
+    "homepage": "https://sno.phy.queensu.ca/~phil/exiftool/index.html",
+    "version": "10.83",
     "license": "https://dev.perl.org/licenses/",
-    "url": "https://downloads.sourceforge.net/project/exiftool/exiftool-10.61.zip",
-    "hash": "bc1763219fd1c748d07df16da00d7bb7991481b03419a093cf62c1e6d8df7147",
+    "url": "https://sourceforge.net/projects/exiftool/files/exiftool-10.83.zip",
+    "hash": "sha1:322394a2fc63d38402f2c3725650f4de9ff5e095",
     "bin": [
         [
             "exiftool(-k).exe",
@@ -12,6 +12,6 @@
     ],
     "checkver": "exiftool-([\\d.]+).zip",
     "autoupdate": {
-        "url": "https://downloads.sourceforge.net/project/exiftool/exiftool-$version.zip"
+        "url": "https://sourceforge.net/projects/exiftool/files/exiftool-$version.zip"
     }
 }

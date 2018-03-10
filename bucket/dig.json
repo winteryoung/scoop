@@ -1,18 +1,32 @@
 {
     "homepage": "https://www.isc.org/",
     "license": "https://www.isc.org/downloads/software-support-policy/isc-license/",
-    "version": "9.11.0",
+    "version": "9.12.0",
     "architecture": {
         "64bit": {
-            "url": "https://ftp.isc.org/isc/bind9/9.11.0/BIND9.11.0.x64.zip",
-            "hash": "2cbc44127bbc9d17ed7a2a23c9c1cd5a055c90dcffd8c3384e7f8efe39ed790f"
+            "url": "https://ftp.isc.org/isc/bind9/9.12.0/BIND9.12.0.x64.zip",
+            "hash": "9cdbbc5383ec2c3cc5f4f6503ed9f27395a6a3de582498a5d0ff49d5cefc43a6"
         },
         "32bit": {
-            "url": "https://ftp.isc.org/isc/bind9/9.11.0/BIND9.11.0.x86.zip",
-            "hash": "7b92b9e3f9fe4cca69feeed73305151f4bdc09c9cbb5858671da2b7fd8a05fe2"
+            "url": "https://ftp.isc.org/isc/bind9/9.12.0/BIND9.12.0.x86.zip",
+            "hash": "8967b23df8088debbae977bf01dabe55408ce979e550d4ccdac27efa31c45717"
         }
     },
     "bin": "dig.exe",
+    "checkver": {
+        "url": "https://ftp.isc.org/isc/bind9/?C=N;O=D",
+        "re": "<a href=\"([\\d\\.]+)/"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://ftp.isc.org/isc/bind9/$version/BIND$version.x64.zip"
+            },
+            "32bit": {
+                "url": "https://ftp.isc.org/isc/bind9/$version/BIND$version.x86.zip"
+            }
+        }
+    },
     "suggest": {
         "vcredist": [
             "extras/vcredist2012"
